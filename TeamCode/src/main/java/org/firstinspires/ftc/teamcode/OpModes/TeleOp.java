@@ -102,7 +102,7 @@ public class TeleOp extends LinearOpMode {
             if(gamepad1.right_bumper){
                 robot.motorTurnTable.setPower(0);
             }
-            
+
         //    telemetry.addData("Servo Position = ", robot.servoLinear.getPosition());
             telemetry.addData("motorLF = ", robot.motorLF.getCurrentPosition());
             telemetry.addData("motorLR = ", robot.motorLR.getCurrentPosition());
