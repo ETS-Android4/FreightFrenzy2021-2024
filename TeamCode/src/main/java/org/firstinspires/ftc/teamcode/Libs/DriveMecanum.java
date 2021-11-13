@@ -5,7 +5,6 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.Hardware.HardwareProfile;
-import org.firstinspires.ftc.teamcode.OpModes.LeviathanAutoInPersonBlue;
 
 public class DriveMecanum {
 
@@ -147,9 +146,9 @@ public class DriveMecanum {
      * Method shooterControl()
      * @param targetRPM
      */
-    public void shooterControl(double targetRPM){
-        robot.motorShooter.setVelocity(rpmToTicksPerSecond(targetRPM));
-    }   // end of method shooterControl
+   // public void shooterControl(double targetRPM){
+     //   robot.motorTurnTable.setVelocity(rpmToTicksPerSecond(targetRPM));
+  //  }   // end of method shooterControl
 
     /**
      * method rpmToTicksPerSecond

@@ -111,27 +111,27 @@ public class BrokenBot extends LinearOpMode {
             }
             else dpadleft = 0;
 
-            if(gamepad2.dpad_up){
-                linearServoPosition = linearServoPosition + 0.01;
-                sleep(200);
-            } else if(gamepad2.dpad_down){
-                linearServoPosition = linearServoPosition - 0.01;
-                sleep(200);
-            }
+          //  if(gamepad2.dpad_up){
+          //      linearServoPosition = linearServoPosition + 0.01;
+          //      sleep(200);
+          //  } else if(gamepad2.dpad_down){
+          //      linearServoPosition = linearServoPosition - 0.01;
+          //      sleep(200);
+          //  }
 
-            robot.servoLinear.setPosition(linearServoPosition);
+        //    robot.servoLinear.setPosition(linearServoPosition);
 
             robot.motorLF.setPower(v1 * modePower + dpadup);
             robot.motorRF.setPower(v2 * modePower + dpadleft);
             robot.motorLR.setPower(v3 * modePower + dpaddown);
             robot.motorRR.setPower(v4 * modePower + dpadright);
 
-            telemetry.addData("Servo Position = ", robot.servoLinear.getPosition());
+         //   telemetry.addData("Servo Position = ", robot.servoLinear.getPosition());
             telemetry.addData("motorLF = ", robot.motorLF.getCurrentPosition());
             telemetry.addData("motorLR = ", robot.motorLR.getCurrentPosition());
             telemetry.addData("motorRF = ", robot.motorRF.getCurrentPosition());
             telemetry.addData("motorRR = ", robot.motorRR.getCurrentPosition());
-            telemetry.addData("Shooter Encoder = ", robot.motorShooter.getCurrentPosition());
+            telemetry.addData("Shooter Encoder = ", robot.motorTurnTable.getCurrentPosition());
             //telemetry.addData("IMU Value: ", theta);
             telemetry.update();
 
