@@ -56,7 +56,8 @@ public class DriveMecanum {
             // check to see if the inital gyro value is less than 90 degrees
             // if so, use the gyro360 value to determine drift
             if (initZ >90 || initZ < -90){
-                currentZ = -gyro360(0);      // always use 0 as the reference angle
+                currentZ = getZAngle();
+//                currentZ = -gyro360(0);      // always use 0 as the reference angle
             } else {
                 currentZ = getZAngle();
             }
