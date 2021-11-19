@@ -2,9 +2,11 @@ package org.firstinspires.ftc.teamcode.Hardware;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
+import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -55,6 +57,8 @@ public class HardwareProfile {
     public DcMotor motorTurnTable = null;  // Right Rear Drive Motor
     public DcMotor motorIntake = null;
     public DcMotorEx motorShooter = null;
+
+    public DistanceSensor sensorWall = null;
 
     /*
     public DcMotor motorShooter1 = null;    // High Speed motor for the shooter
@@ -142,8 +146,14 @@ public class HardwareProfile {
         motorTurnTable.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorTurnTable.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motorTurnTable.setPower(0);
+
+        /***
+         * initialize sensors
+         */
+        sensorWall = hwMap.get(DistanceSensor.class, "Wall");
+
 /***
-        motorIntake = hwMap.dcMotor.get("motorIntake");
+ motorIntake = hwMap.dcMotor.get("motorIntake");
         motorIntake.setDirection(DcMotor.Direction.FORWARD);
         motorIntake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motorIntake.setPower(0);
@@ -201,7 +211,7 @@ public class HardwareProfile {
 
         /*
          * Initialize Sensors
-         */
+         **/
         imu = hwMap.get(BNO055IMU.class, "imu");
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();

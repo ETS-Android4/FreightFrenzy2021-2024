@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.Hardware.HardwareProfile;
 import org.firstinspires.ftc.teamcode.Libs.DriveMecanum;
 
@@ -56,6 +57,7 @@ public class LeviathanAutoRed extends LinearOpMode {
             switch (state) {
                 case TEST:
 
+
                     state = State.HALT;
 
                     break;
@@ -73,36 +75,33 @@ public class LeviathanAutoRed extends LinearOpMode {
                     break;
 
                 case TURNTABLE:
-                    // Strafe diagonally towards outside wall - avoids rings on the field
-                    drive.robotCorrect(0.5, 180, 0.5);
+                    double elementDistance = robot.sensorWall.getDistance(DistanceUnit.INCH);
+                    telemetry.addData("element Distance = ", elementDistance);
+                    telemetry.update();
 
+                    // Drive off wall
+                    drive.robotCorrect(0.5, 180, 0.5);
+                // Rotate 90
                     drive.PIDRotate(-90,0.3);
-                    // Drive to target zone A
+                // Drive to wall, fast and then slow
                     drive.robotCorrect(0.5, 180, 1.0);
                     drive.robotCorrect(0.25, 180, 0.8);
+                // Strafe into Turn table
+                    drive.driveSensorDistance(0.25, 90, 6.8);
 
-                    // Strafe away from wall to place the wobble goal
-                    drive.robotCorrect(0.25, 90, 1.4);
-
+                    sleep(1000);
+                // Drive back to the wall at a very slow rate
+                    drive.robotCorrect(0.1,180,0.1);
+                // Run turn table motor, drop duck
                     robot.motorTurnTable.setPower(-0.2);
 
                     sleep(5000);
 
                     robot.motorTurnTable.setPower(0);
-
+                // Strafe into parking spot
                     drive.robotCorrect(0.5,-90,1.3);
-                    // Place wobble goal
-                    // drive.placeWobbleGoal();
 
-                    // Return to starting position
-                    // Drive back to avoid hitting the wobble goal
-                   // drive.driveDistance(0.5, 180, 18);
-
-                    // Strafe towards the outside wall - avoiding rings on the field
-                    //drive.robotCorrect(0.5, -135, 0.75);
-
-                    // Drive towards the starting position to get reset
-                    //drive.driveDistance(0.5, 180, 36);
+                // Stop
                     state = State.HALT;
 
                     break;
