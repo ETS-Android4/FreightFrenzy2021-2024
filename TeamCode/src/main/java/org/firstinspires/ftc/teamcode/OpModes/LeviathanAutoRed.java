@@ -89,7 +89,7 @@ public class LeviathanAutoRed extends LinearOpMode {
                 // Strafe into Turn table
                     drive.driveSensorDistance(0.25, 90, 6.8);
 
-                    sleep(1000);
+
                 // Drive back to the wall at a very slow rate
                     drive.robotCorrect(0.1,180,0.1);
                 // Run turn table motor, drop duck
@@ -98,8 +98,11 @@ public class LeviathanAutoRed extends LinearOpMode {
                     sleep(5000);
 
                     robot.motorTurnTable.setPower(0);
-                // Strafe into parking spot
-                    drive.robotCorrect(0.5,-90,1.3);
+                // Back away from wall
+                    drive.robotCorrect(0.3,0,0.1);
+
+                    // Strafe into parking spot
+                    drive.driveSensorDistanceOut(0.25, -90, 24);
 
                 // Stop
                     state = State.HALT;

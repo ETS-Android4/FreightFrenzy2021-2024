@@ -203,7 +203,86 @@ public class DriveMecanum {
 
         motorsHalt();
     }   // close robotCorrect method
+    public void driveSensorDistanceOut(double power, double heading, double stopDistance) {
+        String action = "Initializing";
+        double initZ = getZAngle();
+        double currentZ = 0;
+        double zCorrection = 0;
+        boolean active = true;
+        double theta = Math.toRadians(90 + heading);
+        ElapsedTime runTime = new ElapsedTime();
 
+        if(robot.sensorWall.getDistance(DistanceUnit.INCH) > stopDistance) active = false;
+
+        while(opMode.opModeIsActive() && active) {
+            updateValues(action, initZ, theta, currentZ, zCorrection);
+
+            RF = power * (Math.sin(theta) + Math.cos(theta));
+            LF = power * (Math.sin(theta) - Math.cos(theta));
+            LR = power * (Math.sin(theta) + Math.cos(theta));
+            RR = power * (Math.sin(theta) - Math.cos(theta));
+
+            if(robot.sensorWall.getDistance(DistanceUnit.INCH) > stopDistance) active = false;
+
+            // check to see if the inital gyro value is less than 90 degrees
+            // if so, use the gyro360 value to determine drift
+            if (initZ >90 || initZ < -90){
+                currentZ = getZAngle();
+//                currentZ = -gyro360(0);      // always use 0 as the reference angle
+            } else {
+                currentZ = getZAngle();
+            }
+
+            if (currentZ != initZ){
+                zCorrection = Math.abs(initZ - currentZ)/100;
+
+                if (initZ < currentZ) {
+                    RF = RF + zCorrection;
+                    RR = RR + zCorrection;
+                    LF = LF - zCorrection;
+                    LR = LR - zCorrection;
+                    action = " initZ < currentZ";
+                }
+                if (initZ > currentZ) {
+                    RF = RF - zCorrection;
+                    RR = RR - zCorrection;
+                    LF = LF + zCorrection;
+                    LR = LR + zCorrection;
+                    action = " initZ < currentZ";
+                }
+            }   // end of if currentZ != initZ
+
+            /*
+             * Limit that value of the drive motors so that the power does not exceed 100%
+             */
+            if(RF > 1) RF = 1;
+            else if (RF < -1) RF = -1;
+
+            if(LF > 1) LF = 1;
+            else if (LF < -1) LF = -1;
+
+            if(LR > 1) LR = 1;
+            else if (LR < -1) LR = -1;
+
+            if(RR > 1) RR = 1;
+            else if (RR < -1) RR = -1;
+
+            /*
+             * Apply power to the drive wheels
+             */
+            setDrivePower(RF, LF, LR, RR);
+
+            opMode.telemetry.addData("LF Current = ", robot.motorLF.getCurrentPosition());
+            opMode.telemetry.addData("RF Current = ", robot.motorRF.getCurrentPosition());
+            opMode.telemetry.addData("LR Current = ", robot.motorLR.getCurrentPosition());
+            opMode.telemetry.addData("RR Current = ", robot.motorRR.getCurrentPosition());
+            opMode.telemetry.addData( "element Distance = ",  robot.sensorWall.getDistance(DistanceUnit.INCH));
+            opMode.telemetry.update();
+
+        }   // end of while loop
+
+        motorsHalt();
+    }   // close robotCorrect method
 
     /*
      *  Method: robotNoCorrect

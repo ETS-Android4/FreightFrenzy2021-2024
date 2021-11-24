@@ -94,8 +94,11 @@ public class LeviathanAutoBlue extends LinearOpMode {
                     sleep(5000);
 
                     robot.motorTurnTable.setPower(0);
+
+                    drive.robotCorrect(0.3,180,0.1);
+
                     // Strafe into parking spot
-                    drive.robotCorrect(0.5,-90,1.3);
+                    drive.driveSensorDistanceOut(0.25, -90, 26);
 
                     // Stop
                     state = State.HALT;
