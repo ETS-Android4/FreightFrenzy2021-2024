@@ -13,6 +13,7 @@
 package org.firstinspires.ftc.teamcode.OpModes;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.Hardware.HardwareProfile;
 import org.firstinspires.ftc.teamcode.Libs.DriveMecanum;
@@ -38,9 +39,10 @@ public class TeleOp extends LinearOpMode {
         double dpadup, dpaddown, dpadleft, dpadright;
         double r;
         double rightX, rightY;
-        double peakPower = 0.30;
+        double rightA, RightB;
+        double wristPosition = 0.5;
         boolean fieldCentric = true;
-        double armPosition = 0.1;
+        int  targetPosition = 0;
         double linearServoPosition = 0.5;
 
         telemetry.addData("Robot State = ", "NOT READY");
@@ -59,6 +61,9 @@ public class TeleOp extends LinearOpMode {
         /*
          * Calibrate / initialize the gyro sensor
          */
+
+        robot.servoGrab.setPosition(0);
+        robot.servoGrab.setPosition(0.5);
 
         telemetry.addData("Z Value = ", drive.getZAngle());
         telemetry.addData("Robot state = ", "INITIALIZED");
@@ -102,8 +107,38 @@ public class TeleOp extends LinearOpMode {
             if(gamepad1.right_bumper){
                 robot.motorTurnTable.setPower(0);
             }
+            if(gamepad1.left_bumper) {
+                robot.motorTurnTable.setPower(0);
+            }
 
-        //    telemetry.addData("Servo Position = ", robot.servoLinear.getPosition());
+            if(gamepad1.a || gamepad1.a) {
+                targetPosition = 0;
+            } else if(gamepad1.b || gamepad1.b){
+                targetPosition = 490;
+            }else if(gamepad1.y || gamepad2.y){
+                targetPosition = 1200;
+            }
+
+            robot.motorArm.setTargetPosition(targetPosition);
+            robot.motorArm.setPower(0.2);
+
+            if (gamepad1.dpad_left || gamepad2.dpad_left){
+                wristPosition = wristPosition + 0.005;
+                if (wristPosition >1) wristPosition = 1;
+            } else if(gamepad1.dpad_right || gamepad2.dpad_right){
+                wristPosition = wristPosition - 0.005;
+                if (wristPosition < 0) wristPosition = 0;
+            }
+            robot.servoWrist.setPosition(wristPosition);
+
+            if(gamepad1.dpad_up || gamepad2.dpad_up){   // open the claw
+                robot.servoGrab.setPosition(0);
+            } else if(gamepad1.dpad_down || gamepad2.dpad_down){  // close the claw
+                robot.servoGrab.setPosition(0.4);
+            }
+
+
+            //    telemetry.addData("Servo Position = ", robot.servoLinear.getPosition());
             telemetry.addData("motorLF = ", robot.motorLF.getCurrentPosition());
             telemetry.addData("motorLR = ", robot.motorLR.getCurrentPosition());
             telemetry.addData("motorRF = ", robot.motorRF.getCurrentPosition());

@@ -56,7 +56,7 @@ public class HardwareProfile {
     public DcMotor motorRR = null;  // Right Rear Drive Motor
     public DcMotor motorTurnTable = null;  // Right Rear Drive Motor
     public DcMotor motorIntake = null;
-    public DcMotorEx motorShooter = null;
+    public DcMotorEx motorArm = null;
 
     public DistanceSensor sensorWall = null;
 
@@ -68,8 +68,8 @@ public class HardwareProfile {
 
     public BNO055IMU imu;       // Internal accelerometer / Gyro sensor
 
-    public Servo servoWobbleGrab;   // Servo that grabs the wobble goal
-    public Servo servoIntake;
+    public Servo servoGrab;   // Servo that grabs the wobble goal
+    public Servo servoWrist;
     public Servo servoRingStopper;
     public Servo servoLinear;
 /*
@@ -147,13 +147,21 @@ public class HardwareProfile {
         motorTurnTable.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motorTurnTable.setPower(0);
 
+        motorArm = hwMap.get(DcMotorEx.class, "motorArm");
+        motorArm.setDirection(DcMotor.Direction.FORWARD);
+        motorArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorArm.setTargetPosition(0);
+        motorArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        motorArm.setPower(0);
+
         /***
          * initialize sensors
          */
         sensorWall = hwMap.get(DistanceSensor.class, "Wall");
 
 /***
- motorIntake = hwMap.dcMotor.get("motorIntake");
+        motorIntake = hwMap.dcMotor.get("motorIntake");
         motorIntake.setDirection(DcMotor.Direction.FORWARD);
         motorIntake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motorIntake.setPower(0);
@@ -197,8 +205,8 @@ public class HardwareProfile {
          */
 
 
- //       servoWobbleGrab = hwMap.servo.get("servoWobbleGrab");
-   //     servoIntake = hwMap.servo.get("servoIntake");
+        servoGrab = hwMap.servo.get("servoGrab");
+        servoWrist = hwMap.servo.get("servoWrist");
      //   servoRingStopper = hwMap.servo.get("servoRingStopper");
        // servoLinear = hwMap.servo.get("servoLinear");
         /*

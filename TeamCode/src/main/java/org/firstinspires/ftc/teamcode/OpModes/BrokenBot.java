@@ -126,7 +126,7 @@ public class BrokenBot extends LinearOpMode {
             robot.motorLR.setPower(v3 * modePower + dpaddown);
             robot.motorRR.setPower(v4 * modePower + dpadright);
 
-         //   telemetry.addData("Servo Position = ", robot.servoLinear.getPosition());
+            telemetry.addData("Servo Position = ", robot.motorArm.getCurrentPosition());
             telemetry.addData("motorLF = ", robot.motorLF.getCurrentPosition());
             telemetry.addData("motorLR = ", robot.motorLR.getCurrentPosition());
             telemetry.addData("motorRF = ", robot.motorRF.getCurrentPosition());
