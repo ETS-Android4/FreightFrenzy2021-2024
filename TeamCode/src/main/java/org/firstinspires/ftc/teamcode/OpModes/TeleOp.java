@@ -111,7 +111,7 @@ public class TeleOp extends LinearOpMode {
                 robot.motorTurnTable.setPower(0);
             }
 
-            if(gamepad1.a || gamepad1.a) {
+            if(gamepad1.a || gamepad2.a) {
                 targetPosition = 0;
             } else if(gamepad1.b || gamepad1.b){
                 targetPosition = 490;
