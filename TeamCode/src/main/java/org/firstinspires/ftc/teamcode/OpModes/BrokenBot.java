@@ -41,7 +41,7 @@ public class BrokenBot extends LinearOpMode {
         double rightX, rightY;
         double peakPower = 0.30;
         boolean fieldCentric = true;
-        double armPosition = 0.1;
+        //double armPosition = 0.1;
         double linearServoPosition = 0.5;
 
         telemetry.addData("Robot State = ", "NOT READY");
@@ -90,36 +90,32 @@ public class BrokenBot extends LinearOpMode {
             if (gamepad1.dpad_down) {
                 telemetry.addData("MotorLR = ", "ON");
                 dpaddown = 1;
-            }
-            else dpaddown = 0;
+            } else dpaddown = 0;
 
             if (gamepad1.dpad_up) {
                 telemetry.addData("MotorLF = ", "ON");
                 dpadup = 1;
-            }
-            else dpadup = 0;
+            } else dpadup = 0;
 
             if (gamepad1.dpad_right) {
                 telemetry.addData("MotorRR = ", "ON");
                 dpadright = 1;
-            }
-            else dpadright = 0;
+            } else dpadright = 0;
 
-            if(gamepad1.dpad_left) {
+            if (gamepad1.dpad_left) {
                 telemetry.addData("MotorRF = ", "ON");
                 dpadleft = 1;
-            }
-            else dpadleft = 0;
+            } else dpadleft = 0;
 
-          //  if(gamepad2.dpad_up){
-          //      linearServoPosition = linearServoPosition + 0.01;
-          //      sleep(200);
-          //  } else if(gamepad2.dpad_down){
-          //      linearServoPosition = linearServoPosition - 0.01;
-          //      sleep(200);
-          //  }
+            //  if(gamepad2.dpad_up){
+            //      linearServoPosition = linearServoPosition + 0.01;
+            //      sleep(200);
+            //  } else if(gamepad2.dpad_down){
+            //      linearServoPosition = linearServoPosition - 0.01;
+            //      sleep(200);
+            //  }
 
-        //    robot.servoLinear.setPosition(linearServoPosition);
+            //    robot.servoLinear.setPosition(linearServoPosition);
 
             robot.motorLF.setPower(v1 * modePower + dpadup);
             robot.motorRF.setPower(v2 * modePower + dpadleft);
@@ -134,6 +130,19 @@ public class BrokenBot extends LinearOpMode {
             telemetry.addData("Shooter Encoder = ", robot.motorTurnTable.getCurrentPosition());
             //telemetry.addData("IMU Value: ", theta);
             telemetry.update();
+
+            if (gamepad1.a) {
+                robot.motorArm.setPower(0.5);
+            } else if (gamepad1.b) {
+                robot.motorArm.setPower(-0.5);
+            } else robot.motorArm.setPower(0);
+
+            if (gamepad1.x){
+                robot.motorBase.setPower(0.5);
+            } else if (gamepad1.y) {
+                robot.motorBase.setPower(-0.5);
+            } else robot.motorBase.setPower(0);
+
 
 
         }   // end of while opModeIsActive()

@@ -111,32 +111,40 @@ public class TeleOp extends LinearOpMode {
                 robot.motorTurnTable.setPower(0);
             }
 
-            if(gamepad1.a || gamepad2.a) {
-                targetPosition = 0;
-            } else if(gamepad1.b || gamepad1.b){
-                targetPosition = 490;
-            }else if(gamepad1.y || gamepad2.y){
-                targetPosition = 1200;
+            if(gamepad1.dpad_left) {
+                robot.motorBase.setPower(0.5);
+            } else if(gamepad1.dpad_down){
+                robot.motorArm.setPower(-0.5);
+            }else if(gamepad1.dpad_right){
+                robot.motorBase.setPower(-0.5);
+            }else if (gamepad1.dpad_up){
+                robot.motorArm.setPower(0.5);
+            }else {
+                robot.motorArm.setPower(0);
+                robot.motorBase.setPower(0);
             }
 
-            robot.motorArm.setTargetPosition(targetPosition);
-            robot.motorArm.setPower(0.2);
+//            robot.motorArm.setTargetPosition(targetPosition);
+//            robot.motorArm.setPower(0.2);
 
-            if (gamepad1.dpad_left || gamepad2.dpad_left){
-                wristPosition = wristPosition + 0.005;
+            if (gamepad1.a || gamepad2.dpad_left){
+                wristPosition = 0;
+//                wristPosition = wristPosition + 0.005;
                 if (wristPosition >1) wristPosition = 1;
-            } else if(gamepad1.dpad_right || gamepad2.dpad_right){
-                wristPosition = wristPosition - 0.005;
+            } else if(gamepad1.b || gamepad2.dpad_right){
+                wristPosition = 1;
+                //                wristPosition = wristPosition - 0.005;
                 if (wristPosition < 0) wristPosition = 0;
-            }
-            robot.servoWrist.setPosition(wristPosition);
+            } else wristPosition = 0.5;
 
+            robot.servoWrist.setPosition(wristPosition);
+/*
             if(gamepad1.dpad_up || gamepad2.dpad_up){   // open the claw
                 robot.servoGrab.setPosition(0);
             } else if(gamepad1.dpad_down || gamepad2.dpad_down){  // close the claw
                 robot.servoGrab.setPosition(0.4);
             }
-
+*/
 
             //    telemetry.addData("Servo Position = ", robot.servoLinear.getPosition());
             telemetry.addData("motorLF = ", robot.motorLF.getCurrentPosition());

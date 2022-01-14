@@ -6,6 +6,7 @@ import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -57,6 +58,7 @@ public class HardwareProfile {
     public DcMotor motorTurnTable = null;  // Right Rear Drive Motor
     public DcMotor motorIntake = null;
     public DcMotorEx motorArm = null;
+    public DcMotorEx motorBase = null;
 
     public DistanceSensor sensorWall = null;
 
@@ -150,10 +152,19 @@ public class HardwareProfile {
         motorArm = hwMap.get(DcMotorEx.class, "motorArm");
         motorArm.setDirection(DcMotor.Direction.FORWARD);
         motorArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motorArm.setTargetPosition(0);
-        motorArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+      //  motorArm.setTargetPosition(0);
+      //  motorArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motorArm.setPower(0);
+
+        motorBase = hwMap.get(DcMotorEx.class,"motorBase");
+        motorBase.setDirection(DcMotor.Direction.FORWARD);
+        motorBase.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorBase.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorBase.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        motorBase.setPower(0);
+
 
         /***
          * initialize sensors
