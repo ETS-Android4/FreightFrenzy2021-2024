@@ -113,15 +113,18 @@ public class TeleOp extends LinearOpMode {
 
             if(gamepad1.dpad_left) {
                 robot.motorBase.setPower(0.5);
-            } else if(gamepad1.dpad_down){
-                robot.motorArm.setPower(-0.5);
             }else if(gamepad1.dpad_right){
                 robot.motorBase.setPower(-0.5);
+            }else {
+                robot.motorBase.setPower(-0.005);
+            }
+
+            if(gamepad1.dpad_down){
+                robot.motorArm.setPower(-0.5);
             }else if (gamepad1.dpad_up){
                 robot.motorArm.setPower(0.5);
             }else {
-                robot.motorArm.setPower(-0.01);
-                robot.motorBase.setPower(-0.01);
+                robot.motorArm.setPower(-0.005);
             }
 
 //            robot.motorArm.setTargetPosition(targetPosition);
