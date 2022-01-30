@@ -150,7 +150,7 @@ public class HardwareProfile {
         motorTurnTable.setPower(0);
 
         motorArm = hwMap.get(DcMotorEx.class, "motorArm");
-        motorArm.setDirection(DcMotor.Direction.FORWARD);
+        motorArm.setDirection(DcMotor.Direction.REVERSE);
         motorArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
       //  motorArm.setTargetPosition(0);

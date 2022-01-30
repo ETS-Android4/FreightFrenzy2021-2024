@@ -66,6 +66,7 @@ public class TeleOp extends LinearOpMode {
         robot.servoGrab.setPosition(0.5);
 
         telemetry.addData("Z Value = ", drive.getZAngle());
+        telemetry.addData("Good Luck ", "HOME CHICKENS");
         telemetry.addData("Robot state = ", "INITIALIZED");
         telemetry.update();
 
