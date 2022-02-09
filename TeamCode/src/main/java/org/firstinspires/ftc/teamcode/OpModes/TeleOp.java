@@ -12,6 +12,7 @@
 
 package org.firstinspires.ftc.teamcode.OpModes;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -66,6 +67,7 @@ public class TeleOp extends LinearOpMode {
         robot.servoGrab.setPosition(0.5);
 
         telemetry.addData("Z Value = ", drive.getZAngle());
+        telemetry.addData("Greetings = ", "HOME CHICKEN");
         telemetry.addData("Robot state = ", "INITIALIZED");
         telemetry.update();
 
