@@ -216,7 +216,7 @@ public class HardwareProfile {
          */
 
 
-        servoGrab = hwMap.servo.get("servoGrab");
+       // servoGrab = hwMap.servo.get("servoGrab");
         servoWrist = hwMap.servo.get("servoWrist");
      //   servoRingStopper = hwMap.servo.get("servoRingStopper");
        // servoLinear = hwMap.servo.get("servoLinear");

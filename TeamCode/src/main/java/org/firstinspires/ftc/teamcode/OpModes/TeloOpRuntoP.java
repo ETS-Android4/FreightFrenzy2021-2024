@@ -69,8 +69,8 @@ public class TeloOpRuntoP extends LinearOpMode {
          * Calibrate / initialize the gyro sensor
          */
 
-        robot.servoGrab.setPosition(0);
-        robot.servoGrab.setPosition(0.5);
+//        robot.servoGrab.setPosition(0);
+//        robot.servoGrab.setPosition(0.5);
 
         telemetry.addData("Z Value = ", drive.getZAngle());
         telemetry.addData("Greetings = ", "HOME CHICKEN");
@@ -107,20 +107,20 @@ public class TeloOpRuntoP extends LinearOpMode {
             robot.motorRR.setPower(v4 * modePower);
 
             if (gamepad1.dpad_left) {
-                mBase = mBase + 1;
+                mBase = mBase + 20;
             }
             if (gamepad1.dpad_right) {
-                mBase = mBase - 1;
+                mBase = mBase - 20;
             }
             robot.motorBase.setPower(0.5);
             robot.motorBase.setTargetPosition(mBase);
 
 
         if (gamepad1.dpad_down) {
-            mArm = mArm - 1;
+            mArm = mArm - 20;
         }
         if (gamepad1.dpad_up) {
-            mArm = mArm + 1;
+            mArm = mArm + 20;
         }
         robot.motorArm.setPower(0.5);
         robot.motorArm.setTargetPosition(mArm);
@@ -159,10 +159,17 @@ public class TeloOpRuntoP extends LinearOpMode {
             spinpower = 0;
         }
         if (gamepad1.y) {
-            ;
+            mArm = 600;
+            mBase = -700;
         }
-
-
+            if (gamepad1.right_bumper) {
+                mArm = 1080;
+                mBase = -150;
+            }
+            if (gamepad1.left_bumper) {
+                mArm = 360;
+                mBase = 0;
+            }
         robot.motorTurnTable.setPower(spinpower);
 /*
             if(gamepad1.dpad_up || gamepad2.dpad_up){   // open the claw
