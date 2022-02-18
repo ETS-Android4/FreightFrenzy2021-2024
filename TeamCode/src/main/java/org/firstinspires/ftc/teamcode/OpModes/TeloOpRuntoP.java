@@ -107,12 +107,16 @@ public class TeloOpRuntoP extends LinearOpMode {
             robot.motorRR.setPower(v4 * modePower);
 
             if (gamepad1.dpad_left) {
-                mBase = mBase + 20;
+                mBase = mBase + 40;
             }
             if (gamepad1.dpad_right) {
-                mBase = mBase - 20;
+                mBase = mBase - 40;
             }
-            robot.motorBase.setPower(0.5);
+            if (mBase > 0 ){
+                mBase = 0;
+            }
+
+            robot.motorBase.setPower(1.0);
             robot.motorBase.setTargetPosition(mBase);
 
 
@@ -122,7 +126,7 @@ public class TeloOpRuntoP extends LinearOpMode {
         if (gamepad1.dpad_up) {
             mArm = mArm + 20;
         }
-        robot.motorArm.setPower(0.5);
+        robot.motorArm.setPower(0.7);
         robot.motorArm.setTargetPosition(mArm);
 
         if (gamepad1.right_trigger > 0) {
@@ -159,16 +163,16 @@ public class TeloOpRuntoP extends LinearOpMode {
             spinpower = 0;
         }
         if (gamepad1.y) {
-            mArm = 600;
-            mBase = -700;
+            mArm = 520;
+            mBase = -2000;
         }
             if (gamepad1.right_bumper) {
                 mArm = 1080;
-                mBase = -150;
+                mBase = -1120;
             }
             if (gamepad1.left_bumper) {
-                mArm = 360;
-                mBase = 0;
+                mArm = 440;
+                mBase = -1200;
             }
         robot.motorTurnTable.setPower(spinpower);
 /*
