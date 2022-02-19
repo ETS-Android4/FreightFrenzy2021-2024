@@ -116,7 +116,7 @@ public class TeloOpRuntoP extends LinearOpMode {
                 mBase = 0;
             }
 
-            robot.motorBase.setPower(1.0);
+            robot.motorBase.setPower(.80);
             robot.motorBase.setTargetPosition(mBase);
 
 
@@ -163,16 +163,16 @@ public class TeloOpRuntoP extends LinearOpMode {
             spinpower = 0;
         }
         if (gamepad1.y) {
-            mArm = 520;
-            mBase = -2000;
+            mArm = 700;
+            mBase = -950;
         }
             if (gamepad1.right_bumper) {
-                mArm = 1080;
-                mBase = -1120;
+                mArm = 1250;
+                mBase = -400;
             }
             if (gamepad1.left_bumper) {
-                mArm = 440;
-                mBase = -1200;
+                mArm = 480;
+                mBase = 0;
             }
         robot.motorTurnTable.setPower(spinpower);
 /*
