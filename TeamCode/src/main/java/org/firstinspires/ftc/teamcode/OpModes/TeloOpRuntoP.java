@@ -163,12 +163,12 @@ public class TeloOpRuntoP extends LinearOpMode {
             spinpower = 0;
         }
         if (gamepad1.y) {
-            mArm = 700;
+            mArm = 820;
             mBase = -950;
         }
             if (gamepad1.right_bumper) {
-                mArm = 1250;
-                mBase = -400;
+                mArm = 1050;
+                mBase = 0;
             }
             if (gamepad1.left_bumper) {
                 mArm = 480;

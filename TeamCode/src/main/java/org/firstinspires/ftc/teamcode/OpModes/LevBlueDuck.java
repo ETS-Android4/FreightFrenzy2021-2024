@@ -15,9 +15,9 @@ import org.firstinspires.ftc.teamcode.Libs.DriveMecanum;
 
 import java.util.List;
 
-@Autonomous(name = "Remote Auto - LevRedWhse", group = "Leviathan")
+@Autonomous(name = "Remote Auto - LevBlueDuck", group = "Leviathan")
 
-public class LevBluePit extends LinearOpMode{
+public class LevBlueDuck extends LinearOpMode{
 
     public static final String TFOD_MODEL_ASSET = "PP_FF_TSEv3-Green.tflite";
     public static final String[] LABELS = {
