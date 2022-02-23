@@ -17,7 +17,7 @@ import java.util.List;
 
 @Autonomous(name = "Remote Auto - LevRedWhse", group = "Leviathan")
 
-public class LevBluePit extends LinearOpMode{
+public class LevRedWhse extends LinearOpMode{
 
     public static final String TFOD_MODEL_ASSET = "PP_FF_TSEv3-Green.tflite";
     public static final String[] LABELS = {
