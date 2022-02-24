@@ -163,15 +163,15 @@ public class TeloOpRuntoP extends LinearOpMode {
             spinpower = 0;
         }
         if (gamepad1.y) {
-            mArm = 820;
+            mArm = 620;
             mBase = -950;
         }
             if (gamepad1.right_bumper) {
-                mArm = 1050;
+                mArm = 650;
                 mBase = 0;
             }
             if (gamepad1.left_bumper) {
-                mArm = 480;
+                mArm = 140;
                 mBase = 0;
             }
         robot.motorTurnTable.setPower(spinpower);
