@@ -78,8 +78,7 @@ public class LeviathanAutoRed extends LinearOpMode {
                     double elementDistance = robot.sensorWall.getDistance(DistanceUnit.INCH);
                     telemetry.addData("element Distance = ", elementDistance);
                     telemetry.update();
-
-                    // Drive off wall
+                // Drive off wall
                     drive.robotCorrect(0.5, 180, 0.5);
                 // Rotate 90
                     drive.PIDRotate(-90,0.3);

@@ -190,7 +190,7 @@ public class LevBlueWhse extends LinearOpMode{
                     // Drive off wall
                     drive.robotCorrect(0.5, 0, 0.5);
                     // Rotate 45
-                    drive.PIDRotate(-45,0.3);
+                    drive.PIDRotate(45,0.3);
                     // Drive to SE, fast and then slow
                     drive.robotCorrect(0.5, 0, 0.5);
                     drive.robotCorrect(0.25, 0, 0.3);
@@ -209,9 +209,9 @@ public class LevBlueWhse extends LinearOpMode{
                     //reverse to wall
                     drive.robotCorrect(0.5, 180, 1.0);
                     // Rotate 90
-                    drive.PIDRotate(90,0.3);
+                    drive.PIDRotate(-90,0.3);
                     //slide to wall
-                    drive.robotCorrect(0.5, 90, 0.5);
+                    drive.robotCorrect(0.5, -90, 0.5);
                     //drive to Whse
                     drive.robotCorrect(0.5, 0, 1.0);
 

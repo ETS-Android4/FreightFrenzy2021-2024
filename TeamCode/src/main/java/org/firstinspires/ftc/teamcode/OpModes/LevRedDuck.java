@@ -1,8 +1,8 @@
-
 package org.firstinspires.ftc.teamcode.OpModes;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
@@ -15,9 +15,9 @@ import org.firstinspires.ftc.teamcode.Libs.DriveMecanum;
 
 import java.util.List;
 
-@Autonomous(name="State Auto", group="Competition")
-//@Disabled
-public class PeacockAuto extends LinearOpMode {
+@Autonomous(name = "Remote Auto - LevRedDuck", group = "Leviathan")
+
+public class LevRedDuck extends LinearOpMode{
 
     public static final String TFOD_MODEL_ASSET = "PP_FF_TSEv3-Green.tflite";
     public static final String[] LABELS = {
@@ -49,7 +49,8 @@ public class PeacockAuto extends LinearOpMode {
     private State runState = State.SET_DISTANCES;
     private DriveMecanum drive = new DriveMecanum(robot, opMode);
     boolean debugMode = false;
-
+    int mArm = 0;
+    int mBase = 0;
     /* Declare DataLogger variables */
     private String action = "";
 
@@ -91,6 +92,10 @@ public class PeacockAuto extends LinearOpMode {
          * The init() method of the hardware class does all the work here
          */
         robot.init(hardwareMap);
+        robot.motorBase.setTargetPosition(0);
+        robot.motorArm.setTargetPosition(0);
+        robot.motorBase.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.motorArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Ready to run");    //
@@ -146,6 +151,7 @@ public class PeacockAuto extends LinearOpMode {
         waitForStart();
 
         runtime.reset();
+        runState = State.LEVEL_ADJUST;
 
         while (opModeIsActive() && (running)) {
             switch(runState){
@@ -157,20 +163,88 @@ public class PeacockAuto extends LinearOpMode {
 
                     if(scoreLevel == 1){
                         // set arm position to level 1
+                        mArm=620;
+                        mBase=-640;
                     } else if(scoreLevel == 2) {
                         // set arm position to level 2
+                        mArm=720;
+                        mBase=-520;
                     } else {
                         // set arm position to level 3
+                        mArm=1250;
+                        mBase=-800;
                     }
 
                     telemetry.addData("TSE Position = ", scoreLevel);
                     telemetry.update();
-
+                    //runState = State.HALT;  //FOR POSITION TEST
                     runState = State.RUN;
                     break;
 
                 case RUN:
 
+                    // Drive off wall
+                    drive.robotCorrect(0.5, 0, 0.5);
+                    // Rotate 90
+                    drive.PIDRotate(90,0.3);
+                    // Drive to wall, fast and then slow
+                    drive.robotCorrect(0.5, 180, 1.0);
+                    drive.robotCorrect(0.25, 180, 0.8);
+                    // Strafe into Turn table
+                    drive.driveSensorDistance(0.25, 90, 6.8);
+
+
+                    // Drive back to the wall at a very slow rate
+                    drive.robotCorrect(0.1,180,0.1);
+                    // Run turn table motor, drop duck
+                    robot.motorTurnTable.setPower(-0.2);
+
+                    sleep(5000);
+
+                    robot.motorTurnTable.setPower(0);
+                    // Back away from wall
+                    drive.robotCorrect(0.3,0,0.1);
+
+                    // Strafe into parking spot
+                    drive.driveSensorDistanceOut(0.25, -90, 24);
+
+                    // Begin Place Commands
+                    drive.driveSensorDistanceOut(0.25, -90, 41);
+
+                    robot.motorArm.setPower(0.40);
+                    robot.motorArm.setTargetPosition(mArm);
+                    robot.motorBase.setPower(0.40);
+                    robot.motorBase.setTargetPosition(mBase);
+
+                    // Drive off wall
+                    drive.robotCorrect(0.5, 0, 0.6);
+                    // Rotate 45
+                    //drive.PIDRotate(-45,0.3);
+                    // Drive to SE, fast and then slow
+                    drive.robotCorrect(0.5, 0, 0.5);
+                    drive.robotCorrect(0.25, 0, 0.3);
+                    // Drop off block
+                    robot.servoWrist.setPosition(1);
+                    drive.robotCorrect(0.01, 0, 0.9);
+                    robot.servoWrist.setPosition(0.5);
+                    //lower arm
+                    mArm=0;
+                    mBase=0;
+                    robot.motorArm.setPower(0.40);
+                    robot.motorArm.setTargetPosition(mArm);
+                    robot.motorBase.setPower(0.40);
+                    robot.motorBase.setTargetPosition(mBase);
+
+                    //reverse to wall
+                    drive.robotCorrect(0.5, 180, 0.65);
+                    // Rotate 90
+                    //drive.PIDRotate(90,0.3);
+                    //slide to wall
+                    drive.robotCorrect(0.5, 180, 0.5);
+                    //drive to Whse
+                    drive.robotCorrect(0.25, 180, 0.4);
+
+                    drive.driveSensorDistance(0.25, 90, 24);
                     runState = State.HALT;
                     break;
 
@@ -232,4 +306,5 @@ public class PeacockAuto extends LinearOpMode {
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABELS);
     }
-}
+
+}       //End Linear Op Mode

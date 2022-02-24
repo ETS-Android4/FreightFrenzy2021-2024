@@ -182,6 +182,36 @@ public class LevBlueDuck extends LinearOpMode{
                     break;
 
                 case RUN:
+                    // Drive off wall
+                    drive.robotCorrect(0.5, 0, 0.5);
+                    // Rotate 90
+                    drive.PIDRotate(90,0.3);
+                    // Drive to wall, fast and then slow
+                    drive.robotCorrect(0.5, 0, 1.0);
+                    drive.robotCorrect(0.25, 0, 0.8);
+                    // Strafe into Turn table
+                    drive.driveSensorDistance(0.25, 90, 6.8);
+                    // Drive back to the wall at a very slow rate
+                    drive.robotCorrect(0.1,0,0.1);
+
+
+                    // Run turn table motor, drop duck
+                    robot.motorTurnTable.setPower(0.2);
+
+                    sleep(5000);
+
+                    robot.motorTurnTable.setPower(0);
+
+                    drive.robotCorrect(0.3,180,0.1);
+
+                    // Strafe into parking spot
+                    drive.driveSensorDistanceOut(0.25, -90, 26);
+                   //line up for TAH
+                    drive.driveSensorDistanceOut(0.25, -90, 42);
+                    drive.PIDRotate(-90,0.3);
+
+
+
                     robot.motorArm.setPower(0.40);
                     robot.motorArm.setTargetPosition(mArm);
                     robot.motorBase.setPower(0.40);
@@ -190,10 +220,10 @@ public class LevBlueDuck extends LinearOpMode{
                     // Drive off wall
                     drive.robotCorrect(0.5, 0, 0.5);
                     // Rotate 45
-                    drive.PIDRotate(-45,0.3);
+                    //drive.PIDRotate(-45,0.3);
                     // Drive to SE, fast and then slow
-                    drive.robotCorrect(0.5, 0, 0.5);
-                    drive.robotCorrect(0.25, 0, 0.3);
+                    drive.robotCorrect(0.5, 0, 1);
+                    drive.robotCorrect(0.25, 0, 0.25);
                     // Drop off block
                     robot.servoWrist.setPosition(1);
                     drive.robotCorrect(0.01, 0, 0.9);
@@ -207,13 +237,13 @@ public class LevBlueDuck extends LinearOpMode{
                     robot.motorBase.setTargetPosition(mBase);
 
                     //reverse to wall
-                    drive.robotCorrect(0.5, 180, 1.0);
+                    drive.robotCorrect(0.5, 180, 1.25);
                     // Rotate 90
                     drive.PIDRotate(90,0.3);
                     //slide to wall
-                    drive.robotCorrect(0.5, 90, 0.5);
+                    drive.driveSensorDistance(0.25, 90, 26);
                     //drive to Whse
-                    drive.robotCorrect(0.5, 0, 1.0);
+                    drive.robotCorrect(0.5, 0, 0.5);
 
                     drive.robotCorrect(0.01, 0, 0.9);
                     runState = State.HALT;
