@@ -209,24 +209,30 @@ public class LevRedDuck extends LinearOpMode{
                     drive.driveSensorDistanceOut(0.25, -90, 24);
 
                     // Begin Place Commands
-                    drive.driveSensorDistanceOut(0.25, -90, 41);
+                    drive.driveSensorDistanceOut(0.25, -90, 36);
 
                     robot.motorArm.setPower(0.40);
                     robot.motorArm.setTargetPosition(mArm);
                     robot.motorBase.setPower(0.40);
                     robot.motorBase.setTargetPosition(mBase);
+                    sleep(4000);
 
+                    drive.robotCorrect(0.5, 180, 0.2);
                     // Drive off wall
-                    drive.robotCorrect(0.5, 0, 0.6);
+                    drive.robotCorrect(0.5, 0, 0.5);
                     // Rotate 45
                     //drive.PIDRotate(-45,0.3);
                     // Drive to SE, fast and then slow
-                    drive.robotCorrect(0.5, 0, 0.5);
-                    drive.robotCorrect(0.25, 0, 0.3);
+                    drive.robotCorrect(0.5, 0, 0.55);
+                    drive.robotCorrect(0.25, 0, 0.25);
                     // Drop off block
                     robot.servoWrist.setPosition(1);
                     drive.robotCorrect(0.01, 0, 0.9);
                     robot.servoWrist.setPosition(0.5);
+                    //reverse to wall
+                    drive.robotCorrect(0.5, 180, 0.65);
+
+
                     //lower arm
                     mArm=0;
                     mBase=0;
@@ -244,7 +250,7 @@ public class LevRedDuck extends LinearOpMode{
                     //drive to Whse
                     drive.robotCorrect(0.25, 180, 0.4);
 
-                    drive.driveSensorDistance(0.25, 90, 24);
+                    drive.driveSensorDistance(0.25, 90, 30);
                     runState = State.HALT;
                     break;
 

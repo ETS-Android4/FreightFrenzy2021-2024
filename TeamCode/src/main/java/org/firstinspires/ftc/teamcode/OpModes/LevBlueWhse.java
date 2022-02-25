@@ -190,7 +190,7 @@ public class LevBlueWhse extends LinearOpMode{
                     // Drive off wall
                     drive.robotCorrect(0.5, 0, 0.5);
                     // Rotate 45
-                    drive.PIDRotate(45,0.3);
+                    drive.PIDRotate(37,0.3);
                     // Drive to SE, fast and then slow
                     drive.robotCorrect(0.5, 0, 0.5);
                     drive.robotCorrect(0.25, 0, 0.3);
@@ -199,6 +199,9 @@ public class LevBlueWhse extends LinearOpMode{
                     drive.robotCorrect(0.01, 0, 0.9);
                     robot.servoWrist.setPosition(0.5);
                     //lower arm
+                    //reverse to wall
+                    drive.robotCorrect(0.5, 180, 1.0);
+
                     mArm=0;
                     mBase=0;
                     robot.motorArm.setPower(0.40);
@@ -206,14 +209,13 @@ public class LevBlueWhse extends LinearOpMode{
                     robot.motorBase.setPower(0.40);
                     robot.motorBase.setTargetPosition(mBase);
 
-                    //reverse to wall
-                    drive.robotCorrect(0.5, 180, 1.0);
+
                     // Rotate 90
                     drive.PIDRotate(-90,0.3);
                     //slide to wall
                     drive.robotCorrect(0.5, -90, 0.5);
                     //drive to Whse
-                    drive.robotCorrect(0.5, 0, 1.0);
+                    drive.robotCorrect(0.5, 0, 1.2);
 
                     drive.robotCorrect(0.01, 0, 0.9);
                     runState = State.HALT;
